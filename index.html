@@ -66,35 +66,70 @@
             padding: 10px;
             margin-bottom: 15px;
         }
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+        .footer-note a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="client.bundle.js"></script>
 </head>
 <body>
-    <h1>Private Salary Negotiation</h1>
+    <h1>Private Salary Negotiation Tool</h1>
     
-    <h2>Connect to JIFF</h2>
     <div class="reminder">
-        <strong>Reminder:</strong> Both negotiating parties should agree on a unique Computation ID. 
-        Consider using a UUID generator to create a secure and unique identifier.
+        <strong>How it works:</strong>
+        <ol>
+            <li>Both parties agree on a unique Session ID.</li>
+            <li>Each party enters the Session ID and selects their role.</li>
+            <li>Each party enters their salary figure privately.</li>
+            <li>The tool compares the figures without revealing them.</li>
+            <li>You'll be informed if there's a match or not.</li>
+        </ol>
     </div>
-    <label for="computation_id">Computation ID</label>
-    <input id="computation_id" placeholder="Enter agreed-upon UUID">
+
+    <h2>Start Negotiation</h2>
+    <div class="reminder">
+        <strong>Important:</strong> Both parties must use the same Session ID to connect. 
+        Use a random string generator to create a unique identifier.
+    </div>
+    <label for="computation_id">Session ID</label>
+    <input id="computation_id" placeholder="Enter agreed-upon Session ID">
     
-    <label for="party_id">Role</label>
+    <label for="party_id">Your Role</label>
     <select id="party_id">
         <option value="1">Employer</option>
         <option value="2">Employee</option>
     </select>
     
-    <button id="connectButton" onclick="client.connect();">Connect</button>
+    <button id="connectButton" onclick="client.connect();">Start Session</button>
     
-    <h2>Enter Salary</h2>
-    <label for="salary">Salary (Employer: Maximum willing to pay; Employee: Minimum expected)</label>
-    <input id="salary" type="number" min="0">
+    <h2>Enter Your Salary Figure</h2>
+    <label for="salary">Salary Amount</label>
+    <input id="salary" type="number" min="0" placeholder="Employer: Max to offer; Employee: Min to accept">
     
-    <button onclick="client.submit();" disabled id="button">Submit</button>
+    <button onclick="client.submit();" disabled id="button">Submit Salary</button>
     
     <div id="output"></div>
+
+    <div class="reminder">
+        <strong>Privacy Notice:</strong> Your exact salary figure is not shared with the other party. 
+        The tool only informs both parties whether there's a potential agreement based on the entered amounts.
+    </div>
+
+    <div class="footer-note">
+        This tool uses secure multi-party computation techniques. 
+        Learn more about <a href="https://github.com/multiparty/jiff" target="_blank">JIFF</a>, 
+        a JavaScript framework for building web-based secure MPC applications.
+    </div>
 </body>
 </html>
