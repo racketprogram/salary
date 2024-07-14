@@ -82,6 +82,36 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="client.bundle.js"></script>
+    <script>
+        function validateForm() {
+            var computationId = document.getElementById('computation_id').value.trim();
+            var salary = document.getElementById('salary').value.trim();
+            var submitButton = document.getElementById('button');
+            var connectButton = document.getElementById('connectButton');
+
+            // 檢查 Session ID 是否為空
+            if (computationId === '') {
+                connectButton.disabled = true;
+            } else {
+                connectButton.disabled = false;
+            }
+
+            // 檢查薪資是否為空或非正數
+            if (salary === '' || parseFloat(salary) <= 0) {
+                submitButton.disabled = true;
+            } else {
+                submitButton.disabled = false;
+            }
+        }
+
+        // 當頁面加載完成時，添加事件監聽器
+        window.onload = function() {
+            document.getElementById('computation_id').addEventListener('input', validateForm);
+            document.getElementById('salary').addEventListener('input', validateForm);
+            // 初始驗證
+            validateForm();
+        };
+    </script>
 </head>
 <body>
     <h1>Private Salary Negotiation Tool</h1>
@@ -105,19 +135,19 @@
         You can generate a UUID using an online UUID generator.
     </div>
     <label for="computation_id">Session ID (UUID)</label>
-    <input id="computation_id" placeholder="Enter agreed-upon UUID">
+    <input id="computation_id" placeholder="Enter agreed-upon UUID" required>
     
     <label for="party_id">Your Role</label>
-    <select id="party_id">
+    <select id="party_id" required>
         <option value="1">Employer</option>
         <option value="2">Employee</option>
     </select>
     
-    <button id="connectButton" onclick="client.connect();">Start Session</button>
+    <button id="connectButton" onclick="client.connect();" disabled>Start Session</button>
     
     <h2>Enter Your Salary Figure</h2>
     <label for="salary">Salary Amount</label>
-    <input id="salary" type="number" min="0" placeholder="Employer: Max to offer; Employee: Min to accept">
+    <input id="salary" type="number" min="1" placeholder="Employer: Max to offer; Employee: Min to accept" required>
     
     <button onclick="client.submit();" disabled id="button">Submit Salary</button>
     
