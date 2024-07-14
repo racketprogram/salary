@@ -4,7 +4,6 @@
   "description": "Example standlone JIFF application",
   "main": "index.js",
   "scripts": {
-    "build": "browserify client.js -s client --debug -o client.bundle.js"
   },
   "repository": {
     "type": "git",
