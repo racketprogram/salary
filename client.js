@@ -7,7 +7,7 @@ function connect() {
   
   $('#output').append('<p>Attempting to connect...</p>');
 
-  jiffClient = new JIFFClient('http://localhost:8080', computation_id, {
+  jiffClient = new JIFFClient(window.location.origin, computation_id, {
     party_id: party_id,
     party_count: 2,
     crypto_provider: true,
@@ -43,12 +43,19 @@ async function submit() {
     let agreement = shares[1].sgteq(shares[2]);
 
     $('#output').append('<p>Waiting for results...</p>');
-    const result = await jiffClient.open(agreement);
-    const isAgreement = result.toNumber() === 1; // If the result is 1, it indicates agreement
-    if (isAgreement) {
-      $('#output').append('<p>Negotiation successful! Employer\'s salary is greater than or equal to Employee\'s requirement.</p>');
+    const isAgreement = await jiffClient.open(agreement);
+
+    if (isAgreement.toNumber() === 1) {
+      $('#output').append('<p>Agreement reached! Calculating average salary...</p>');
+      
+      // Only calculate average if there's an agreement
+      let sum = shares[1].sadd(shares[2]);
+      const sumResult = await jiffClient.open(sum);
+      const average = sumResult.toNumber() / 2;
+      
+      $('#output').append('<p>Negotiation successful! The agreed average salary is: ' + average + '</p>');
     } else {
-      $('#output').append('<p>Negotiation failed. Employer\'s salary is lower than Employee\'s requirement.</p>');
+      $('#output').append('<p>Negotiation failed. Employer\'s offer is lower than Employee\'s requirement.</p>');
     }
   } catch (error) {
     $('#output').append("<p class='error'>Error during calculation: " + error.message + "</p>");

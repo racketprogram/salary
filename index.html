@@ -94,16 +94,18 @@
             <li>Each party enters their salary figure privately.</li>
             <li>The tool compares the figures without revealing them.</li>
             <li>You'll be informed if there's a match or not.</li>
+            <li>If a match is found (i.e., the employer's offer meets or exceeds the employee's expectation), the average of both salary figures will be revealed to both parties.</li>
         </ol>
     </div>
 
     <h2>Start Negotiation</h2>
     <div class="reminder">
         <strong>Important:</strong> Both parties must use the same Session ID to connect. 
-        Use a random string generator to create a unique identifier.
+        We strongly recommend using a UUID (Universally Unique Identifier) as your Session ID. 
+        You can generate a UUID using an online UUID generator.
     </div>
-    <label for="computation_id">Session ID</label>
-    <input id="computation_id" placeholder="Enter agreed-upon Session ID">
+    <label for="computation_id">Session ID (UUID)</label>
+    <input id="computation_id" placeholder="Enter agreed-upon UUID">
     
     <label for="party_id">Your Role</label>
     <select id="party_id">
@@ -124,6 +126,8 @@
     <div class="reminder">
         <strong>Privacy Notice:</strong> Your exact salary figure is not shared with the other party. 
         The tool only informs both parties whether there's a potential agreement based on the entered amounts.
+        If a match is found (i.e., the employer's offer meets or exceeds the employee's expectation), 
+        the average of both salary figures will be revealed to both parties.
     </div>
 
     <div class="footer-note">
