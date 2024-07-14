@@ -4,6 +4,7 @@
   "description": "Example standlone JIFF application",
   "main": "index.js",
   "scripts": {
+    "build": ""
   },
   "repository": {
     "type": "git",
